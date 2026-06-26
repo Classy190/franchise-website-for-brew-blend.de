@@ -1,7 +1,29 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, DollarSign, Building2, FileText, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, DollarSign, Building2, FileText, CheckCircle2, TrendingUp, BarChart3, Percent } from 'lucide-react';
+import { useTranslations } from '../i18n';
 
 export default function InvestitionsDetails() {
+  const t = useTranslations();
+
+  // Beispielberechnung mit 30k€ monatlichem Umsatz
+  const monthlyRevenue = 30000;
+  const costsPercentages = {
+    warenEinsatz: 0.30, // 30%
+    personalkosten: 0.25, // 25%
+    miete: 3000, // Fixkosten
+    franchiseGebühr: 0.05, // 5%
+    marketingBeitrag: 0.02, // 2%
+    sonstige: 1500, // Sonstige Kosten
+  };
+
+  const netRevenue = monthlyRevenue - (monthlyRevenue * costsPercentages.warenEinsatz);
+  const personalCosts = monthlyRevenue * costsPercentages.personalkosten;
+  const franchiseFee = monthlyRevenue * costsPercentages.franchiseGebühr;
+  const marketingFee = monthlyRevenue * costsPercentages.marketingBeitrag;
+  const totalCosts = (monthlyRevenue * costsPercentages.warenEinsatz) + personalCosts + costsPercentages.miete + franchiseFee + marketingFee + costsPercentages.sonstige;
+  const netProfit = monthlyRevenue - totalCosts;
+  const netProfitPercent = ((netProfit / monthlyRevenue) * 100).toFixed(1);
+
   return (
     <div className="min-h-screen bg-[#faf9f7] text-[#1a1a1a]">
       <div className="max-w-6xl mx-auto px-6 py-10">
@@ -9,301 +31,394 @@ export default function InvestitionsDetails() {
           to="/"
           className="inline-flex items-center gap-2 text-[#1a1a1a] border border-[#b48e57] px-4 py-2 rounded-full hover:bg-[#b48e57]/10 transition"
         >
-          <ArrowLeft className="w-4 h-4" /> Zurück zur Startseite
+          <ArrowLeft className="w-4 h-4" /> Zurück
         </Link>
 
         <header className="mt-10 mb-12 text-center">
-          <p className="text-[#b48e57] text-sm font-semibold tracking-[0.3em] uppercase">Investitionsdetails</p>
+          <p className="text-[#b48e57] text-sm font-semibold tracking-[0.3em] uppercase">Investition & Finanzierung</p>
           <h1 className="text-4xl sm:text-5xl font-bold mt-4" style={{ fontFamily: 'Playfair Display, serif' }}>
-            Marktangepasste Investitionsübersicht für Brew Blend Türkei
+            Was Sie investieren, was Sie bekommen
           </h1>
           <p className="mt-4 text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Reale lokale Werte für Standortwahl, Flächenbedarf und Investitionsblöcke in türkischer Lira und Euro. Ideal für Entscheidungen in Istanbul, Ankara, İzmir und touristischen Hotspots.
+            Detaillierte Kostenübersicht, Leistungen und Gewinnprognose für Ihr Brew Blend Franchise
           </p>
         </header>
 
-        <section className="grid lg:grid-cols-3 gap-6 mb-14">
-          {[
-            { icon: DollarSign, title: 'Gesamtinvestition', value: '4,5 – 6,5 Mio. TL / 140.000 – 205.000 €' },
-            { icon: Building2, title: 'Geschäftsmodell', value: 'Flaggschiff Café' },
-            { icon: FileText, title: 'Tiefgreifende Transparenz', value: 'Standort & Kosten lokal' },
-          ].map((stat, index) => (
-            <div key={index} className="rounded-3xl bg-white p-8 shadow-lg border border-gray-100">
-              <stat.icon className="w-10 h-10 text-[#b48e57] mb-5" />
-              <p className="text-sm text-gray-500 uppercase tracking-[0.3em] mb-3">{stat.title}</p>
-              <p className="text-3xl font-bold" style={{ fontFamily: 'Playfair Display, serif' }}>{stat.value}</p>
-            </div>
-          ))}
-        </section>
-
-        <section className="rounded-3xl bg-[#f7f2e9] p-8 shadow-lg border border-gray-100 mb-12">
-          <h2 className="text-3xl font-bold mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>
-            Türkischer Franchise-Markt im Überblick
-          </h2>
-          <div className="grid gap-6 lg:grid-cols-3">
-            <div className="rounded-3xl bg-white p-6 border border-gray-100 shadow-sm">
-              <h3 className="text-xl font-semibold mb-4">Wachstumsmarkt</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                Die türkische Café-Kultur wächst stark – insbesondere in Großstädten und Touristenzentren. Specialty Coffee hat in den letzten Jahren deutlich an Bedeutung gewonnen.
-              </p>
-            </div>
-            <div className="rounded-3xl bg-white p-6 border border-gray-100 shadow-sm">
-              <h3 className="text-xl font-semibold mb-4">Lokale Nachfrage</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                In Istanbul, Ankara und İzmir steigen die Ausgaben für hochwertige Kaffee-Erlebnisse. Kunden erwarten modernes Design, nachhaltige Produkte und schnellen Service.
-              </p>
-            </div>
-            <div className="rounded-3xl bg-white p-6 border border-gray-100 shadow-sm">
-              <h3 className="text-xl font-semibold mb-4">Touristische Stärken</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                Beliebte Reiseziele wie Bodrum, Antalya und Cappadocia bieten ganzjährige Besucherspitzen. Das steigert Umsatzpotenzial für Premium-Kaffeekonzepte.
-              </p>
-            </div>
-          </div>
-
-          <div className="grid gap-6 lg:grid-cols-2 mt-8">
-            <div className="rounded-3xl bg-[#faf9f7] p-6 border border-gray-100">
-              <h3 className="text-lg font-semibold mb-3">Währung & Vergleichbarkeit</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                Die Zahlen sind primär in TL kalkuliert. Euro-Angaben dienen als Referenz – basierend auf einem konservativen Wechselkurs von rund 32 TL/€.
-              </p>
-            </div>
-            <div className="rounded-3xl bg-[#faf9f7] p-6 border border-gray-100">
-              <h3 className="text-lg font-semibold mb-3">Lieferkette & Betrieb</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                Für den Betrieb in der Türkei sind lokale Zulieferer, Zollabwicklung und effiziente Logistik entscheidend. Brew Blend nutzt lokale Partner für Warenfluss und Bestandsmanagement.
-              </p>
-            </div>
-          </div>
-        </section>
-
+        {/* Was Sie investieren */}
         <section className="rounded-3xl bg-white p-8 shadow-lg border border-gray-100 mb-12">
-          <h2 className="text-2xl font-bold mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>Investitionsstruktur</h2>
-          <div className="grid md:grid-cols-2 gap-6">
+          <h2 className="text-3xl font-bold mb-8 text-[#1a1a1a]" style={{ fontFamily: 'Playfair Display, serif' }}>
+            Was Sie investieren – Kostenübersicht Modell A (Café Flaggschiff)
+          </h2>
+
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
             <div className="space-y-4">
-              <div className="rounded-3xl bg-[#faf9f7] p-6 border border-gray-100">
-                <p className="text-sm text-gray-500 uppercase tracking-[0.3em] mb-2">Franchise-Lizenz</p>
-                <p className="text-xl font-semibold">450.000 TL / ~14.000 €</p>
+              <div className="rounded-xl bg-[#faf9f7] p-6 border border-gray-200">
+                <p className="text-sm text-[#b48e57] font-semibold uppercase tracking-[0.3em] mb-2">Franchise-Lizenzgebühr</p>
+                <p className="text-2xl font-bold">25.000 €</p>
+                <p className="text-xs text-gray-500 mt-2">Einmalige Gebühr für Markenrechte und Support</p>
               </div>
-              <div className="rounded-3xl bg-[#faf9f7] p-6 border border-gray-100">
-                <p className="text-sm text-gray-500 uppercase tracking-[0.3em] mb-2">Einrichtung & Design</p>
-                <p className="text-xl font-semibold">1.200.000 – 1.900.000 TL / ~37.000 – 60.000 €</p>
+              <div className="rounded-xl bg-[#faf9f7] p-6 border border-gray-200">
+                <p className="text-sm text-[#b48e57] font-semibold uppercase tracking-[0.3em] mb-2">Store-Design & Einrichtung</p>
+                <p className="text-2xl font-bold">45.000 – 70.000 €</p>
+                <p className="text-xs text-gray-500 mt-2">Innenarchitektur, Möbel, Bar-Aufbau</p>
               </div>
-              <div className="rounded-3xl bg-[#faf9f7] p-6 border border-gray-100">
-                <p className="text-sm text-gray-500 uppercase tracking-[0.3em] mb-2">Equipment</p>
-                <p className="text-xl font-semibold">900.000 – 1.300.000 TL / ~28.000 – 41.000 €</p>
+              <div className="rounded-xl bg-[#faf9f7] p-6 border border-gray-200">
+                <p className="text-sm text-[#b48e57] font-semibold uppercase tracking-[0.3em] mb-2">Kaffee-Equipment</p>
+                <p className="text-2xl font-bold">20.000 – 35.000 €</p>
+                <p className="text-xs text-gray-500 mt-2">Espressomaschinen, Mahlwerke, Brühgeräte</p>
+              </div>
+              <div className="rounded-xl bg-[#faf9f7] p-6 border border-gray-200">
+                <p className="text-sm text-[#b48e57] font-semibold uppercase tracking-[0.3em] mb-2">Erstbestand Kaffee & Zubehör</p>
+                <p className="text-2xl font-bold">5.000 – 8.000 €</p>
+                <p className="text-xs text-gray-500 mt-2">Premium-Kaffeebohnen, Zubereitungsmittel</p>
               </div>
             </div>
+
             <div className="space-y-4">
-              <div className="rounded-3xl bg-[#faf9f7] p-6 border border-gray-100">
-                <p className="text-sm text-gray-500 uppercase tracking-[0.3em] mb-2">Startvorrat</p>
-                <p className="text-xl font-semibold">200.000 – 300.000 TL / ~6.000 – 9.500 €</p>
+              <div className="rounded-xl bg-[#faf9f7] p-6 border border-gray-200">
+                <p className="text-sm text-[#b48e57] font-semibold uppercase tracking-[0.3em] mb-2">IT-System (POS, Warenwirtschaft)</p>
+                <p className="text-2xl font-bold">4.000 – 6.000 €</p>
+                <p className="text-xs text-gray-500 mt-2">Kassensystem, Bestandsverwaltung, Analytics</p>
               </div>
-              <div className="rounded-3xl bg-[#faf9f7] p-6 border border-gray-100">
-                <p className="text-sm text-gray-500 uppercase tracking-[0.3em] mb-2">POS & IT</p>
-                <p className="text-xl font-semibold">120.000 – 180.000 TL / ~3.700 – 5.700 €</p>
+              <div className="rounded-xl bg-[#faf9f7] p-6 border border-gray-200">
+                <p className="text-sm text-[#b48e57] font-semibold uppercase tracking-[0.3em] mb-2">Marketing-Startpaket</p>
+                <p className="text-2xl font-bold">5.000 – 8.000 €</p>
+                <p className="text-xs text-gray-500 mt-2">Launch-Kampagne, Beschilderung, Social Media</p>
               </div>
-              <div className="rounded-3xl bg-[#faf9f7] p-6 border border-gray-100">
-                <p className="text-sm text-gray-500 uppercase tracking-[0.3em] mb-2">Marketing & Schulung</p>
-                <p className="text-xl font-semibold">220.000 – 340.000 TL / ~6.800 – 10.700 €</p>
+              <div className="rounded-xl bg-[#faf9f7] p-6 border border-gray-200">
+                <p className="text-sm text-[#b48e57] font-semibold uppercase tracking-[0.3em] mb-2">Schulung & Training</p>
+                <p className="text-2xl font-bold">3.000 – 5.000 €</p>
+                <p className="text-xs text-gray-500 mt-2">2-4 Wochen Deutschland, Barista-Zertifizierung</p>
+              </div>
+              <div className="rounded-xl bg-[#faf9f7] p-6 border border-gray-200">
+                <p className="text-sm text-[#b48e57] font-semibold uppercase tracking-[0.3em] mb-2">Kaution & Reserven</p>
+                <p className="text-2xl font-bold">10.000 – 15.000 €</p>
+                <p className="text-xs text-gray-500 mt-2">6 Monate Betriebskosten-Reserve</p>
               </div>
             </div>
           </div>
-          <div className="mt-8 rounded-3xl bg-[#1a1a1a] p-6 text-white">
-            <p className="text-sm uppercase tracking-[0.3em] text-[#b48e57] mb-2">Gesamt für Modell A</p>
-            <p className="text-3xl font-bold" style={{ fontFamily: 'Playfair Display, serif' }}>4,5 – 6,5 Mio. TL / 140.000 – 205.000 €</p>
+
+          <div className="rounded-xl bg-[#1a1a1a] p-8 text-white">
+            <div className="flex items-center justify-between">
+              <span className="text-xl font-bold">GESAMTINVESTITION</span>
+              <span className="text-4xl font-bold text-[#b48e57]" style={{ fontFamily: 'Playfair Display, serif' }}>
+                120.000 – 180.000 €
+              </span>
+            </div>
+            <p className="text-sm text-gray-300 mt-3">(Davon ~40% Eigenkapital erforderlich = 48.000 – 72.000 €)</p>
           </div>
         </section>
 
+        {/* Was Sie bekommen */}
         <section className="rounded-3xl bg-[#f5f0e8] p-8 shadow-lg border border-gray-100 mb-12">
-          <div className="text-center mb-8">
-            <span className="text-[#b48e57] text-sm font-semibold tracking-[0.3em] uppercase">Fläche & Ausstattung</span>
-            <h2 className="text-3xl font-bold text-[#1a1a1a] mt-4" style={{ fontFamily: 'Playfair Display, serif' }}>
-              Mindestflächen und notwendige Ausstattung
-            </h2>
-            <p className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed">
-              Die Investitionsseite enthält die konkreten Flächen- und Ausstattungsanforderungen für jedes Brew Blend Modell.
-            </p>
+          <h2 className="text-3xl font-bold mb-8 text-[#1a1a1a]" style={{ fontFamily: 'Playfair Display, serif' }}>
+            Was Sie bekommen – Unsere Leistungen
+          </h2>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="rounded-xl bg-white p-6 border border-gray-200 shadow-sm hover:shadow-lg transition">
+              <div className="w-10 h-10 rounded-lg bg-[#b48e57]/10 flex items-center justify-center mb-4">
+                <CheckCircle2 className="w-6 h-6 text-[#b48e57]" />
+              </div>
+              <h3 className="text-lg font-semibold mb-3">Premium-Konzept</h3>
+              <p className="text-gray-600 text-sm">Bewährte Geschäftsformula mit etabliertem Branding und Markenidentität</p>
+            </div>
+
+            <div className="rounded-xl bg-white p-6 border border-gray-200 shadow-sm hover:shadow-lg transition">
+              <div className="w-10 h-10 rounded-lg bg-[#b48e57]/10 flex items-center justify-center mb-4">
+                <CheckCircle2 className="w-6 h-6 text-[#b48e57]" />
+              </div>
+              <h3 className="text-lg font-semibold mb-3">Exklusiver Warenbezug</h3>
+              <p className="text-gray-600 text-sm">Zugang zu Premium-Kaffeebohnen mit garantierter Qualität und fairen Preisen</p>
+            </div>
+
+            <div className="rounded-xl bg-white p-6 border border-gray-200 shadow-sm hover:shadow-lg transition">
+              <div className="w-10 h-10 rounded-lg bg-[#b48e57]/10 flex items-center justify-center mb-4">
+                <CheckCircle2 className="w-6 h-6 text-[#b48e57]" />
+              </div>
+              <h3 className="text-lg font-semibold mb-3">Schulung & Zertifizierung</h3>
+              <p className="text-gray-600 text-sm">2-4 Wochen intensives Training in Deutschland, Barista-Zertifizierung inklusive</p>
+            </div>
+
+            <div className="rounded-xl bg-white p-6 border border-gray-200 shadow-sm hover:shadow-lg transition">
+              <div className="w-10 h-10 rounded-lg bg-[#b48e57]/10 flex items-center justify-center mb-4">
+                <CheckCircle2 className="w-6 h-6 text-[#b48e57]" />
+              </div>
+              <h3 className="text-lg font-semibold mb-3">Marketing & PR</h3>
+              <p className="text-gray-600 text-sm">Launch-Support, Social-Media-Vorlagen und regionale Marketingkampagnen</p>
+            </div>
+
+            <div className="rounded-xl bg-white p-6 border border-gray-200 shadow-sm hover:shadow-lg transition">
+              <div className="w-10 h-10 rounded-lg bg-[#b48e57]/10 flex items-center justify-center mb-4">
+                <CheckCircle2 className="w-6 h-6 text-[#b48e57]" />
+              </div>
+              <h3 className="text-lg font-semibold mb-3">24/7 Support</h3>
+              <p className="text-gray-600 text-sm">Ständige Erreichbarkeit für Betriebsfragen, technische Probleme und Beratung</p>
+            </div>
+
+            <div className="rounded-xl bg-white p-6 border border-gray-200 shadow-sm hover:shadow-lg transition">
+              <div className="w-10 h-10 rounded-lg bg-[#b48e57]/10 flex items-center justify-center mb-4">
+                <CheckCircle2 className="w-6 h-6 text-[#b48e57]" />
+              </div>
+              <h3 className="text-lg font-semibold mb-3">Quartalsaudits</h3>
+              <p className="text-gray-600 text-sm">Regelmäßige Qualitätsprüfungen und Optimierungsvorschläge für Ihren Betrieb</p>
+            </div>
+
+            <div className="rounded-xl bg-white p-6 border border-gray-200 shadow-sm hover:shadow-lg transition">
+              <div className="w-10 h-10 rounded-lg bg-[#b48e57]/10 flex items-center justify-center mb-4">
+                <CheckCircle2 className="w-6 h-6 text-[#b48e57]" />
+              </div>
+              <h3 className="text-lg font-semibold mb-3">Standortberatung</h3>
+              <p className="text-gray-600 text-sm">Professionelle Unterstützung bei Standortsuche und Marktanalyse in der Türkei</p>
+            </div>
+
+            <div className="rounded-xl bg-white p-6 border border-gray-200 shadow-sm hover:shadow-lg transition">
+              <div className="w-10 h-10 rounded-lg bg-[#b48e57]/10 flex items-center justify-center mb-4">
+                <CheckCircle2 className="w-6 h-6 text-[#b48e57]" />
+              </div>
+              <h3 className="text-lg font-semibold mb-3">Academy & Weiterbildung</h3>
+              <p className="text-gray-600 text-sm">Zugang zu Online-Akademie mit regelmäßigen Schulungsinhalten und Updates</p>
+            </div>
+
+            <div className="rounded-xl bg-white p-6 border border-gray-200 shadow-sm hover:shadow-lg transition">
+              <div className="w-10 h-10 rounded-lg bg-[#b48e57]/10 flex items-center justify-center mb-4">
+                <CheckCircle2 className="w-6 h-6 text-[#b48e57]" />
+              </div>
+              <h3 className="text-lg font-semibold mb-3">Netzwerk & Community</h3>
+              <p className="text-gray-600 text-sm">Austausch mit anderen Franchise-Partnern und Zugang zur globalen Brew Blend Community</p>
+            </div>
           </div>
-          <div className="grid lg:grid-cols-3 gap-6">
-            {[
-              {
-                title: 'Brew Blend Café',
-                minArea: '90 m²',
-                equipment: 'Siebträger, 2 Mahlwerke, Kühlschränke, Spüle, POS, offene Barista-Theke',
-              },
-              {
-                title: 'Brew Blend Express',
-                minArea: '45 m²',
-                equipment: 'Kompakter Siebträger, Mahlwerk, Kühlung, POS, Barista-Arbeitsplatz',
-              },
-              {
-                title: 'Brew Blend Corner',
-                minArea: '18 m²',
-                equipment: 'Kaffee-Take-away-Station, kleine Espressomaschine, Mini-Kühlung, POS',
-              },
-            ].map((item, i) => (
-              <div key={i} className="bg-white rounded-3xl p-6 shadow-lg border border-gray-100">
-                <h3 className="text-2xl font-bold text-[#1a1a1a] mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>{item.title}</h3>
-                <p className="text-sm text-[#b48e57] font-semibold uppercase tracking-[0.3em] mb-3">Mindestfläche</p>
-                <p className="text-3xl font-bold text-[#1a1a1a] mb-4">{item.minArea}</p>
-                <div className="text-sm text-gray-600 leading-relaxed">
-                  <p className="font-semibold mb-2">Empfohlene Basisausstattung:</p>
-                  <p>{item.equipment}</p>
+        </section>
+
+        {/* Monatliche Gebühren & Abgaben */}
+        <section className="rounded-3xl bg-white p-8 shadow-lg border border-gray-100 mb-12">
+          <h2 className="text-3xl font-bold mb-8 text-[#1a1a1a]" style={{ fontFamily: 'Playfair Display, serif' }}>
+            Was Sie monatlich abgeben – Gebühren & Prozentual
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-6 mb-8">
+            <div className="rounded-xl bg-gradient-to-br from-red-50 to-red-100 p-6 border border-red-200">
+              <div className="flex items-center gap-3 mb-4">
+                <Percent className="w-6 h-6 text-red-600" />
+                <p className="text-sm text-red-600 font-semibold uppercase tracking-[0.3em]">Franchise-Gebühr</p>
+              </div>
+              <p className="text-3xl font-bold text-red-700">5%</p>
+              <p className="text-sm text-red-600 mt-3">vom Nettoumsatz</p>
+              <div className="mt-4 pt-4 border-t border-red-200">
+                <p className="text-xs text-gray-600">Beispiel bei 30.000€ Umsatz: 1.500€/Monat</p>
+              </div>
+            </div>
+
+            <div className="rounded-xl bg-gradient-to-br from-orange-50 to-orange-100 p-6 border border-orange-200">
+              <div className="flex items-center gap-3 mb-4">
+                <Percent className="w-6 h-6 text-orange-600" />
+                <p className="text-sm text-orange-600 font-semibold uppercase tracking-[0.3em]">Marketing-Beitrag</p>
+              </div>
+              <p className="text-3xl font-bold text-orange-700">2%</p>
+              <p className="text-sm text-orange-600 mt-3">vom Nettoumsatz</p>
+              <div className="mt-4 pt-4 border-t border-orange-200">
+                <p className="text-xs text-gray-600">Beispiel bei 30.000€ Umsatz: 600€/Monat</p>
+              </div>
+            </div>
+
+            <div className="rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 p-6 border border-blue-200">
+              <div className="flex items-center gap-3 mb-4">
+                <DollarSign className="w-6 h-6 text-blue-600" />
+                <p className="text-sm text-blue-600 font-semibold uppercase tracking-[0.3em]">Warenbezug</p>
+              </div>
+              <p className="text-3xl font-bold text-blue-700">variabel</p>
+              <p className="text-sm text-blue-600 mt-3">nach Preisliste</p>
+              <div className="mt-4 pt-4 border-t border-blue-200">
+                <p className="text-xs text-gray-600">Typisch ~30% des Umsatzes</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-xl bg-[#faf9f7] p-6 border border-gray-200">
+            <p className="text-sm text-gray-600 mb-3"><strong>Zusammenfassung laufende Gebühren:</strong></p>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span>Franchise-Gebühr + Marketing:</span>
+                <span className="font-semibold">7% vom Umsatz</span>
+              </div>
+              <div className="flex justify-between text-gray-500">
+                <span className="text-xs">(Beispiel: 30.000€ Umsatz = 2.100€/Monat)</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Beispielrechnung 30k€ */}
+        <section className="rounded-3xl bg-white p-8 shadow-lg border border-gray-100 mb-12">
+          <h2 className="text-3xl font-bold mb-8 text-[#1a1a1a]" style={{ fontFamily: 'Playfair Display, serif' }}>
+            Praktische Gewinnberechnung – Beispiel mit 30.000€ monatlicher Umsatz
+          </h2>
+
+          <div className="overflow-x-auto mb-8">
+            <table className="w-full">
+              <thead>
+                <tr className="bg-[#1a1a1a] text-white">
+                  <th className="text-left p-4 rounded-tl-lg">Position</th>
+                  <th className="text-right p-4">Betrag</th>
+                  <th className="text-right p-4">% vom Umsatz</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="bg-[#faf9f7] border-b">
+                  <td className="p-4 font-semibold text-green-700">Bruttoumsatz</td>
+                  <td className="text-right p-4 font-bold text-green-700">30.000€</td>
+                  <td className="text-right p-4 font-bold text-green-700">100%</td>
+                </tr>
+                
+                <tr className="border-b">
+                  <td className="p-4">Wareneinsatz (30%)</td>
+                  <td className="text-right p-4">- 9.000€</td>
+                  <td className="text-right p-4">30%</td>
+                </tr>
+                
+                <tr className="bg-[#faf9f7] border-b">
+                  <td className="p-4">Personalkosten (25%)</td>
+                  <td className="text-right p-4">- 7.500€</td>
+                  <td className="text-right p-4">25%</td>
+                </tr>
+
+                <tr className="border-b">
+                  <td className="p-4">Miete & Nebenkosten</td>
+                  <td className="text-right p-4">- 3.000€</td>
+                  <td className="text-right p-4">10%</td>
+                </tr>
+
+                <tr className="bg-[#faf9f7] border-b">
+                  <td className="p-4 font-semibold text-red-600">Franchise-Gebühr (5%)</td>
+                  <td className="text-right p-4 font-semibold text-red-600">- 1.500€</td>
+                  <td className="text-right p-4 font-semibold text-red-600">5%</td>
+                </tr>
+
+                <tr className="border-b">
+                  <td className="p-4 font-semibold text-red-600">Marketing-Beitrag (2%)</td>
+                  <td className="text-right p-4 font-semibold text-red-600">- 600€</td>
+                  <td className="text-right p-4 font-semibold text-red-600">2%</td>
+                </tr>
+
+                <tr className="bg-[#faf9f7] border-b">
+                  <td className="p-4">Sonstige Kosten</td>
+                  <td className="text-right p-4">- 1.500€</td>
+                  <td className="text-right p-4">5%</td>
+                </tr>
+
+                <tr className="bg-[#1a1a1a] text-white font-bold">
+                  <td className="p-4 rounded-bl-lg">NETTOGEWINN/MONAT</td>
+                  <td className="text-right p-4 text-[#b48e57]">{netProfit.toFixed(0)}€</td>
+                  <td className="text-right p-4 rounded-br-lg text-[#b48e57]">{netProfitPercent}%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 mb-8">
+            <div className="rounded-xl bg-gradient-to-br from-green-50 to-green-100 p-6 border border-green-200">
+              <p className="text-sm text-green-600 font-semibold uppercase tracking-[0.3em] mb-2">Jahresgewinn (bei konstanter Performance)</p>
+              <p className="text-3xl font-bold text-green-700">{(netProfit * 12).toFixed(0)}€</p>
+              <p className="text-xs text-green-600 mt-3">= Gewinn pro Jahr</p>
+            </div>
+
+            <div className="rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 p-6 border border-blue-200">
+              <p className="text-sm text-blue-600 font-semibold uppercase tracking-[0.3em] mb-2">Gesamtausgaben monatlich</p>
+              <p className="text-3xl font-bold text-blue-700">{totalCosts.toFixed(0)}€</p>
+              <p className="text-xs text-blue-600 mt-3">= 80% des Umsatzes</p>
+            </div>
+
+            <div className="rounded-xl bg-gradient-to-br from-purple-50 to-purple-100 p-6 border border-purple-200">
+              <p className="text-sm text-purple-600 font-semibold uppercase tracking-[0.3em] mb-2">ROI (Gesamtinvestition)</p>
+              <p className="text-3xl font-bold text-purple-700">24-30 Monate</p>
+              <p className="text-xs text-purple-600 mt-3">Bei 150k€ Investition & 6k€ monatlicher Gewinn</p>
+            </div>
+          </div>
+
+          <div className="rounded-xl bg-yellow-50 p-6 border-l-4 border-yellow-500">
+            <p className="text-sm text-yellow-800 font-semibold mb-3">ℹ️ Wichtige Hinweise:</p>
+            <ul className="text-sm text-yellow-800 space-y-2">
+              <li>✓ Beispiel zeigt realistische Zahlen für etablierte Lokale</li>
+              <li>✓ Die ersten 6-12 Monate sind typischerweise schwächer (Kundenaufbau)</li>
+              <li>✓ Touristenzentren können höhere Umsätze erzielen (40-50k€+)</li>
+              <li>✓ Diese Berechnung ist eine Orientierung – lokale Marktbedingungen variieren</li>
+            </ul>
+          </div>
+        </section>
+
+        {/* Break-Even Analyse */}
+        <section className="rounded-3xl bg-[#f5f0e8] p-8 shadow-lg border border-gray-100 mb-12">
+          <h2 className="text-3xl font-bold mb-8 text-[#1a1a1a]" style={{ fontFamily: 'Playfair Display, serif' }}>
+            Punkt der Rentabilität (Break-Even)
+          </h2>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="rounded-xl bg-white p-6 border border-gray-200 shadow-sm">
+              <h3 className="text-lg font-semibold mb-4 text-[#b48e57]">Notwendiger monatlicher Umsatz für Break-Even</h3>
+              <div className="mb-6">
+                <p className="text-xs text-gray-500 uppercase tracking-[0.3em] mb-2">Minimale monatliche Fixkosten (mit allen Gebühren):</p>
+                <p className="text-2xl font-bold text-[#1a1a1a]">~17.000€ – 20.000€</p>
+              </div>
+              
+              <div className="pt-6 border-t border-gray-200">
+                <p className="text-xs text-gray-500 uppercase tracking-[0.3em] mb-2">Das bedeutet:</p>
+                <ul className="space-y-2 text-sm text-gray-600">
+                  <li>✓ Mit 20k€ Umsatz: ca. 1.200€ monatlicher Gewinn</li>
+                  <li>✓ Mit 25k€ Umsatz: ca. 3.800€ monatlicher Gewinn</li>
+                  <li>✓ Mit 30k€ Umsatz: ca. 6.000€ monatlicher Gewinn</li>
+                  <li>✓ Mit 40k€ Umsatz: ca. 10.500€ monatlicher Gewinn</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="rounded-xl bg-white p-6 border border-gray-200 shadow-sm">
+              <h3 className="text-lg font-semibold mb-4 text-[#b48e57]">Typische Timeline zur Rentabilität</h3>
+              
+              <div className="space-y-4">
+                <div className="pb-4 border-b border-gray-200">
+                  <p className="text-sm font-semibold text-gray-700">Monat 1-3: Anlaufphase</p>
+                  <p className="text-xs text-gray-500">Kundenakquise, ~10-15k€ Umsatz/Monat, noch negative Gewinn</p>
+                </div>
+
+                <div className="pb-4 border-b border-gray-200">
+                  <p className="text-sm font-semibold text-gray-700">Monat 4-6: Wachstumphase</p>
+                  <p className="text-xs text-gray-500">~15-20k€ Umsatz/Monat, erste kleine Gewinne</p>
+                </div>
+
+                <div className="pb-4 border-b border-gray-200">
+                  <p className="text-sm font-semibold text-gray-700">Monat 7-12: Stabilisierung</p>
+                  <p className="text-xs text-gray-500">~20-25k€ Umsatz/Monat, solide Gewinne</p>
+                </div>
+
+                <div>
+                  <p className="text-sm font-semibold text-gray-700">Monat 12+: Profitabilität</p>
+                  <p className="text-xs text-gray-500">~25-30k€+ Umsatz/Monat, ROI nach 24-30 Monaten erreicht</p>
                 </div>
               </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="rounded-3xl bg-white p-8 shadow-lg border border-gray-100 mb-12">
-          <h2 className="text-2xl font-bold mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>Laufende Gebühren</h2>
-          <div className="grid gap-4">
-            {[
-              { label: 'Franchise-Gebühr', value: '5% vom Nettoumsatz' },
-              { label: 'Marketing-Beitrag', value: '2% vom Nettoumsatz' },
-              { label: 'Warenbezug', value: 'gemäß Preisliste, exklusiv über Brew Blend' },
-            ].map((item, i) => (
-              <div key={i} className="rounded-3xl bg-[#faf9f7] p-6 border border-gray-100 flex justify-between items-center">
-                <span className="font-semibold">{item.label}</span>
-                <span className="text-[#1a1a1a] font-bold">{item.value}</span>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="rounded-3xl bg-white p-8 shadow-lg border border-gray-100 mb-12">
-          <h2 className="text-2xl font-bold mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>Rahmenbedingungen</h2>
-          <div className="grid gap-6 lg:grid-cols-3">
-            <div className="rounded-3xl bg-[#faf9f7] p-6 border border-gray-100">
-              <h3 className="text-lg font-semibold mb-4">Finanzielle Anforderungen</h3>
-              <ul className="space-y-3 text-gray-600 text-sm">
-                <li>Eigenkapital: mind. 40% der Gesamtinvestition</li>
-                <li>Liquide Mittel für 6 Monate Betriebskosten</li>
-                <li>Bonität und Finanzprüfung durch Brew Blend</li>
-              </ul>
-            </div>
-            <div className="rounded-3xl bg-[#faf9f7] p-6 border border-gray-100">
-              <h3 className="text-lg font-semibold mb-4">Rechtliche Anforderungen</h3>
-              <ul className="space-y-3 text-gray-600 text-sm">
-                <li>Gewerbeanmeldung und Gastronomie-Lizenz in der Türkei</li>
-                <li>Registrierung als Ltd. Şti. oder andere geeignete Rechtsform</li>
-                <li>Steuernummer (Vergi Kimlik Numarası) und Sozialversicherungsregistrierung (SGK)</li>
-                <li>Standortgenehmigung und Bauauflagenprüfung</li>
-              </ul>
-            </div>
-            <div className="rounded-3xl bg-[#faf9f7] p-6 border border-gray-100">
-              <h3 className="text-lg font-semibold mb-4">Betriebliche Anforderungen</h3>
-              <ul className="space-y-3 text-gray-600 text-sm">
-                <li>Exklusiver Warenbezug über Brew Blend</li>
-                <li>Schulung in Deutschland: 2-4 Wochen</li>
-                <li>Mietvertrag min. 5 Jahre</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="mt-8 grid gap-6 lg:grid-cols-2">
-            <div className="rounded-3xl bg-[#faf9f7] p-6 border border-gray-100">
-              <h3 className="text-lg font-semibold mb-4">Standortanforderungen</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                Bevorzugte Lagen in Fußgängerzonen, Einkaufszentren oder hochwertigen Geschäftsstraßen. Gute Sichtbarkeit und Laufkundschaft sind dafür entscheidend.
-              </p>
-            </div>
-            <div className="rounded-3xl bg-[#faf9f7] p-6 border border-gray-100">
-              <h3 className="text-lg font-semibold mb-4">Personal & Management</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                Betreiber sollten operative Erfahrung mitbringen. Mindestens ein baristaerfahrener Manager, plus Service- und Küchenpersonal für den lokalen Betrieb.
-              </p>
             </div>
           </div>
         </section>
 
-        <section className="rounded-3xl bg-[#faf9f7] p-8 shadow-lg border border-gray-100">
-          <h2 className="text-2xl font-bold mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>Unser Rat</h2>
-          <div className="grid gap-6 lg:grid-cols-2">
-            <div>
-              <p className="text-gray-600 leading-relaxed mb-4">
-                Brew Blend setzt auf klare Standards: hochwertige Produkte, konsistente Markenführung und strenge Qualitätskontrollen. Der Erfolg hängt von einer sauberen Umsetzung dieser Elemente vor Ort ab.
-              </p>
-              <p className="text-gray-600 leading-relaxed mb-4">
-                Wählen Sie Ihren Standort mit Bedacht: Gute Erreichbarkeit, Frequenz und ein Umfeld mit höherer Kaufkraft sind wichtiger als die niedrigste Miete.
-              </p>
+        {/* Contact Section */}
+        <section className="rounded-3xl bg-gradient-to-r from-[#1a1a1a] to-[#2a2a2a] p-8 shadow-lg border border-[#b48e57]/30">
+          <h2 className="text-2xl font-bold text-white mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>
+            Möchten Sie mehr erfahren?
+          </h2>
+          <p className="text-gray-300 mb-6">
+            Unsere Experten beantworten Ihre Fragen und erstellen einen individuellen Finanzplan basierend auf Ihrem geplanten Standort.
+          </p>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-white/10 backdrop-blur p-6 rounded-xl border border-white/20">
+              <p className="text-[#b48e57] text-sm font-semibold uppercase tracking-[0.3em] mb-2">E-Mail</p>
+              <p className="text-white text-lg font-semibold">franchise@brew-blend.de</p>
             </div>
-            <div>
-              <p className="text-gray-600 leading-relaxed mb-4">
-                Lokale Marktkenntnis ist entscheidend. Nutzen Sie unsere Standortanalyse und sprechen Sie mit lokalen Maklern, um die passende Nachbarschaft für Brew Blend zu finden.
-              </p>
-              <p className="text-gray-600 leading-relaxed">
-                Planen Sie die ersten Monate konservativ. Seien Sie auf einen längeren Anlauf vorbereitet und nutzen Sie gemeinsame Marketingaktionen mit Brew Blend, um schnell Bekanntheit aufzubauen.
-              </p>
+            <div className="bg-white/10 backdrop-blur p-6 rounded-xl border border-white/20">
+              <p className="text-[#b48e57] text-sm font-semibold uppercase tracking-[0.3em] mb-2">Telefon</p>
+              <p className="text-white text-lg font-semibold">+90 212 000 0000</p>
             </div>
-          </div>
-
-          <div className="mt-8 grid gap-4 md:grid-cols-2">
-            <div className="rounded-3xl bg-white p-6 border border-gray-100 shadow-sm">
-              <h3 className="text-lg font-semibold mb-3">Wichtiger Hinweis</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                Alle Zahlen sind Orientierungswerte. Bitte lassen Sie finalen Finanzplan und Marktanalyse durch unser Team oder Ihren Steuerberater prüfen.
-              </p>
-            </div>
-            <div className="rounded-3xl bg-white p-6 border border-gray-100 shadow-sm">
-              <h3 className="text-lg font-semibold mb-3">Empfehlung</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                Nutzen Sie unsere Franchise-Begleitung für Vertragsverhandlung, Standortprüfung und die ersten 90 Tage nach Eröffnung.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="rounded-3xl bg-white p-8 shadow-lg border border-gray-100 mb-12">
-          <h2 className="text-2xl font-bold mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>Häufig gestellte Fragen</h2>
-          <div className="grid gap-6">
-            <div className="rounded-3xl bg-[#faf9f7] p-6 border border-gray-100">
-              <h3 className="text-lg font-semibold mb-3">Wie schnell ist eine Eröffnung möglich?</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                Nach Vertragsunterzeichnung rechnen wir mit 4-6 Monaten bis zur Eröffnung, abhängig von Standortfreigabe, Baugenehmigung und Einrichtung.
-              </p>
-            </div>
-            <div className="rounded-3xl bg-[#faf9f7] p-6 border border-gray-100">
-              <h3 className="text-lg font-semibold mb-3">Welche lokalen Kosten sind besonders wichtig?</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                Miete, Personal, lokale Steuern und Versorgungsleistungen sind die größten laufenden Posten. Achten Sie besonders auf die Mietbindung und Betriebskosten in zentralen Lagen.
-              </p>
-            </div>
-            <div className="rounded-3xl bg-[#faf9f7] p-6 border border-gray-100">
-              <h3 className="text-lg font-semibold mb-3">Sind Auszahlungen in Euro möglich?</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                Vertrags- und Lizenzzahlungen erfolgen in der Regel in TL. Euro-Angaben sind als Orientierung gedacht und helfen bei der Planung internationaler Investoren.
-              </p>
-            </div>
-            <div className="rounded-3xl bg-[#faf9f7] p-6 border border-gray-100">
-              <h3 className="text-lg font-semibold mb-3">Wie unterstützt Brew Blend beim Standort?</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                Brew Blend bietet Unterstützung bei Standortanalyse, Marktstudien und Verhandlungen. Lokale Experten begleiten Sie bei der Auswahl und der Genehmigungsphase.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="rounded-3xl bg-[#f7f2e9] p-8 shadow-lg border border-gray-100 mb-12">
-          <h2 className="text-2xl font-bold mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>Kontakt & nächste Schritte</h2>
-          <div className="grid gap-6 lg:grid-cols-2">
-            <div className="rounded-3xl bg-white p-6 border border-gray-100 shadow-sm">
-              <p className="text-gray-600 leading-relaxed mb-4">
-                Interesse an Brew Blend Franchise in der Türkei? Unser Expansionsteam beantwortet Ihre Fragen und begleitet Sie von der ersten Standortprüfung bis zur Eröffnung.
-              </p>
-              <p className="text-gray-600 text-sm"><strong>E-Mail:</strong> franchise@brew-blend.de</p>
-              <p className="text-gray-600 text-sm"><strong>Web:</strong> www.brew-blend.de/franchise</p>
-              <p className="text-gray-600 text-sm"><strong>Telefon:</strong> +90 212 000 0000</p>
-            </div>
-            <div className="rounded-3xl bg-white p-6 border border-gray-100 shadow-sm">
-              <h3 className="text-lg font-semibold mb-4">Nächste Schritte</h3>
-              <ul className="list-disc ml-5 space-y-3 text-gray-600 text-sm">
-                <li>Kontakt aufnehmen und Erstgespräch vereinbaren</li>
-                <li>Standortanalyse und Finanzplanung prüfen</li>
-                <li>Bewerbungsunterlagen einreichen</li>
-                <li>Persönliches Gespräch und Discovery Day in Deutschland</li>
-              </ul>
+            <div className="bg-white/10 backdrop-blur p-6 rounded-xl border border-white/20">
+              <p className="text-[#b48e57] text-sm font-semibold uppercase tracking-[0.3em] mb-2">Ort</p>
+              <p className="text-white text-lg font-semibold">Antalya, Muratpaşa</p>
             </div>
           </div>
         </section>

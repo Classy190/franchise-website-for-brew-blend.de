@@ -1,5 +1,4 @@
 import { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import jsPDF from 'jspdf';
 import {
   Coffee,
@@ -700,10 +699,10 @@ export default function FranchiseKonzept() {
                 <FileText className="w-5 h-5" />
                 {generating ? 'PDF wird erstellt...' : 'Komplettes Konzept als PDF'}
               </button>
-              <Link to="/investition" className="flex items-center justify-center gap-2 border-2 border-white/30 hover:border-white/60 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300">
-                Investitionsdetails
+              <a href="#overview" className="flex items-center justify-center gap-2 border-2 border-white/30 hover:border-white/60 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300">
+                Konzept ansehen
                 <ArrowRight className="w-5 h-5" />
-              </Link>
+              </a>
             </div>
           </div>
           <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
@@ -809,103 +808,6 @@ export default function FranchiseKonzept() {
                   <div className="text-white/60 text-xs mt-3">Istanbul → Ankara → İzmir → Antalya → Bodrum</div>
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Franchise Models */}
-        <section className="py-20 px-6">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-              <span className="text-[#b48e57] text-sm font-semibold tracking-[0.3em] uppercase">Franchise-Modelle</span>
-              <h2 className="text-4xl sm:text-5xl font-bold text-[#1a1a1a] mt-3 mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>
-                Drei flexible Konzepte
-              </h2>
-              <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-                Wählen Sie das Modell, das zu Ihrem Budget und Standort passt.
-              </p>
-            </div>
-
-            <div className="grid lg:grid-cols-3 gap-8">
-              {[
-                {
-                  title: 'Brew Blend Café',
-                  subtitle: 'Flaggschiff',
-                  area: '80-150 m²',
-                  seats: '30-60 Gäste',
-                  equipment: 'Siebträger, 2 Mahlwerke, Kühlschrank, POS, Getränke-Kühlung, Spüle',
-                  features: [
-                    'Vollständige Barista-Bar',
-                    'Skandinavisches Premium-Design',
-                    'Komplettes Sortiment',
-                    'Bohnen-Retail-Bereich',
-                    'Community Events & Tastings',
-                  ],
-                  recommended: true,
-                },
-                {
-                  title: 'Brew Blend Express',
-                  subtitle: 'High-Frequency',
-                  area: '30-60 m²',
-                  seats: '8-15 Plätze',
-                  equipment: 'Kompakter Siebträger, Mahlwerk, Kühlung, POS, Barista-Arbeitsplatz',
-                  features: [
-                    'Fokus Take-Away',
-                    'Kompaktes Equipment',
-                    'Schneller Service',
-                    'Ausgewähltes Gebäck',
-                    'Bohnen-Retail',
-                  ],
-                  recommended: false,
-                },
-                {
-                  title: 'Brew Blend Corner',
-                  subtitle: 'Shop-in-Shop',
-                  area: '10-25 m²',
-                  seats: 'Stehplätze',
-                  equipment: 'Kaffee-Take-away-Station, kleine Espressomaschine, Mini-Kühlung, POS',
-                  features: [
-                    'In bestehenden Geschäften',
-                    'Hotels & Bürogebäude',
-                    'Minimales Setup',
-                    'Kaffee-to-Go',
-                    'Bohnenverkauf',
-                  ],
-                  recommended: false,
-                },
-              ].map((model, i) => (
-                <div key={i} className={`relative rounded-2xl p-8 transition-all duration-300 hover:scale-[1.02] ${model.recommended ? 'bg-[#1a1a1a] text-white shadow-2xl ring-2 ring-[#b48e57]' : 'bg-white shadow-lg border border-gray-100'}`}>
-                  {model.recommended && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#b48e57] text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
-                      Empfohlen
-                    </div>
-                  )}
-                  <div className={`text-sm font-semibold tracking-wider uppercase ${model.recommended ? 'text-[#b48e57]' : 'text-[#b48e57]'}`}>{model.subtitle}</div>
-                  <h3 className="text-2xl font-bold mt-2 mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>{model.title}</h3>
-                  <div className={`flex gap-4 mb-6 text-sm ${model.recommended ? 'text-gray-400' : 'text-gray-500'}`}>
-                    <span className="flex items-center gap-1"><MapPin className="w-4 h-4" />{model.area}</span>
-                    <span className="flex items-center gap-1"><Users className="w-4 h-4" />{model.seats}</span>
-                  </div>
-                  <ul className="space-y-3">
-                    {model.features.map((f, j) => (
-                      <li key={j} className="flex items-center gap-3">
-                        <CheckCircle2 className={`w-5 h-5 flex-shrink-0 ${model.recommended ? 'text-[#b48e57]' : 'text-green-500'}`} />
-                        <span className={model.recommended ? 'text-gray-300' : 'text-gray-600'}>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <div className={`mt-6 rounded-2xl p-4 ${model.recommended ? 'bg-[#191919]/80' : 'bg-[#f6f3ed]'}`}>
-                    <p className={`text-sm font-semibold mb-2 ${model.recommended ? 'text-[#b48e57]' : 'text-[#b48e57]'}`}>Standard-Ausstattung</p>
-                    <p className={`text-sm ${model.recommended ? 'text-gray-200' : 'text-gray-600'}`}>{model.equipment}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="mt-12 text-center">
-              <a href="/investition" className="inline-flex items-center gap-2 justify-center bg-[#b48e57] text-white px-8 py-4 rounded-2xl font-semibold shadow-lg shadow-[#b48e57]/20 transition hover:bg-[#9a7848]">
-                Alle Investitionsdetails anzeigen
-                <ArrowRight className="w-5 h-5" />
-              </a>
             </div>
           </div>
         </section>
@@ -1184,6 +1086,7 @@ export default function FranchiseKonzept() {
           </div>
         </section>
 
+        {/* Revenue Forecast */}
         {/* Next Steps */}
         <section className="py-20 px-6 bg-[#faf9f7]">
           <div className="max-w-5xl mx-auto">

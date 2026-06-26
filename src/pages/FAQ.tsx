@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
 import { ArrowLeft, HelpCircle, CheckCircle2 } from 'lucide-react';
+import { useTranslations } from '../i18n';
 
 export default function FAQ() {
+  const t = useTranslations();
+
   return (
     <div className="min-h-screen bg-[#faf9f7] text-[#1a1a1a]">
       <div className="max-w-6xl mx-auto px-6 py-10">
@@ -9,16 +12,16 @@ export default function FAQ() {
           to="/"
           className="inline-flex items-center gap-2 text-[#1a1a1a] border border-[#b48e57] px-4 py-2 rounded-full hover:bg-[#b48e57]/10 transition"
         >
-          <ArrowLeft className="w-4 h-4" /> Zurück zur Startseite
+          <ArrowLeft className="w-4 h-4" /> {t.faq.back}
         </Link>
 
         <header className="mt-10 mb-10 text-center">
-          <p className="text-[#b48e57] text-sm font-semibold tracking-[0.3em] uppercase">FAQ</p>
+          <p className="text-[#b48e57] text-sm font-semibold tracking-[0.3em] uppercase">{t.faq.pageLabel}</p>
           <h1 className="text-4xl sm:text-5xl font-bold mt-4" style={{ fontFamily: 'Playfair Display, serif' }}>
-            Häufige Fragen zum Brew Blend Franchise
+            {t.faq.title}
           </h1>
           <p className="mt-4 text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Alle wichtigen Antworten für Ihre Entscheidung: Standort, Kosten, Vertrag und den Markteintritt in der Türkei.
+            {t.faq.subtitle}
           </p>
         </header>
 

@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import jsPDF from 'jspdf';
 import {
   Coffee,
@@ -699,10 +700,10 @@ export default function FranchiseKonzept() {
                 <FileText className="w-5 h-5" />
                 {generating ? 'PDF wird erstellt...' : 'Komplettes Konzept als PDF'}
               </button>
-              <a href="#overview" className="flex items-center justify-center gap-2 border-2 border-white/30 hover:border-white/60 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300">
-                Konzept ansehen
+              <Link to="/investition" className="flex items-center justify-center gap-2 border-2 border-white/30 hover:border-white/60 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300">
+                Investitionsdetails
                 <ArrowRight className="w-5 h-5" />
-              </a>
+              </Link>
             </div>
           </div>
           <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
@@ -830,9 +831,9 @@ export default function FranchiseKonzept() {
                 {
                   title: 'Brew Blend Café',
                   subtitle: 'Flaggschiff',
-                  price: '120.000 – 180.000 €',
                   area: '80-150 m²',
                   seats: '30-60 Gäste',
+                  equipment: 'Siebträger, 2 Mahlwerke, Kühlschrank, POS, Getränke-Kühlung, Spüle',
                   features: [
                     'Vollständige Barista-Bar',
                     'Skandinavisches Premium-Design',
@@ -845,9 +846,9 @@ export default function FranchiseKonzept() {
                 {
                   title: 'Brew Blend Express',
                   subtitle: 'High-Frequency',
-                  price: '60.000 – 100.000 €',
                   area: '30-60 m²',
                   seats: '8-15 Plätze',
+                  equipment: 'Kompakter Siebträger, Mahlwerk, Kühlung, POS, Barista-Arbeitsplatz',
                   features: [
                     'Fokus Take-Away',
                     'Kompaktes Equipment',
@@ -860,9 +861,9 @@ export default function FranchiseKonzept() {
                 {
                   title: 'Brew Blend Corner',
                   subtitle: 'Shop-in-Shop',
-                  price: '30.000 – 55.000 €',
                   area: '10-25 m²',
                   seats: 'Stehplätze',
+                  equipment: 'Kaffee-Take-away-Station, kleine Espressomaschine, Mini-Kühlung, POS',
                   features: [
                     'In bestehenden Geschäften',
                     'Hotels & Bürogebäude',
@@ -881,7 +882,6 @@ export default function FranchiseKonzept() {
                   )}
                   <div className={`text-sm font-semibold tracking-wider uppercase ${model.recommended ? 'text-[#b48e57]' : 'text-[#b48e57]'}`}>{model.subtitle}</div>
                   <h3 className="text-2xl font-bold mt-2 mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>{model.title}</h3>
-                  <div className={`text-3xl font-bold mb-6 ${model.recommended ? 'text-[#b48e57]' : 'text-[#1a1a1a]'}`} style={{ fontFamily: 'Playfair Display, serif' }}>{model.price}</div>
                   <div className={`flex gap-4 mb-6 text-sm ${model.recommended ? 'text-gray-400' : 'text-gray-500'}`}>
                     <span className="flex items-center gap-1"><MapPin className="w-4 h-4" />{model.area}</span>
                     <span className="flex items-center gap-1"><Users className="w-4 h-4" />{model.seats}</span>
@@ -894,56 +894,18 @@ export default function FranchiseKonzept() {
                       </li>
                     ))}
                   </ul>
+                  <div className={`mt-6 rounded-2xl p-4 ${model.recommended ? 'bg-[#191919]/80' : 'bg-[#f6f3ed]'}`}>
+                    <p className={`text-sm font-semibold mb-2 ${model.recommended ? 'text-[#b48e57]' : 'text-[#b48e57]'}`}>Standard-Ausstattung</p>
+                    <p className={`text-sm ${model.recommended ? 'text-gray-200' : 'text-gray-600'}`}>{model.equipment}</p>
+                  </div>
                 </div>
               ))}
             </div>
-          </div>
-        </section>
-
-        {/* Investment Overview */}
-        <section className="py-20 px-6 bg-white">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-16">
-              <span className="text-[#b48e57] text-sm font-semibold tracking-[0.3em] uppercase">Investition</span>
-              <h2 className="text-4xl sm:text-5xl font-bold text-[#1a1a1a] mt-3 mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>
-                Kostenübersicht Modell A
-              </h2>
-            </div>
-
-            <div className="bg-[#faf9f7] rounded-2xl overflow-hidden shadow-lg">
-              {[
-                { item: 'Franchise-Lizenzgebühr', amount: '25.000 €' },
-                { item: 'Store-Design & Einrichtung', amount: '45.000 – 70.000 €' },
-                { item: 'Kaffee-Equipment', amount: '20.000 – 35.000 €' },
-                { item: 'Erstbestand Kaffee & Zubehör', amount: '5.000 – 8.000 €' },
-                { item: 'IT-System (POS, Warenwirtschaft)', amount: '4.000 – 6.000 €' },
-                { item: 'Marketing-Startpaket', amount: '5.000 – 8.000 €' },
-                { item: 'Schulung & Training', amount: '3.000 – 5.000 €' },
-                { item: 'Kaution & Reserven', amount: '10.000 – 15.000 €' },
-              ].map((row, i) => (
-                <div key={i} className={`flex items-center justify-between px-8 py-4 ${i % 2 === 0 ? 'bg-[#faf9f7]' : 'bg-white'}`}>
-                  <span className="text-gray-700 font-medium">{row.item}</span>
-                  <span className="text-[#1a1a1a] font-bold">{row.amount}</span>
-                </div>
-              ))}
-              <div className="flex items-center justify-between px-8 py-5 bg-[#1a1a1a]">
-                <span className="text-white font-bold text-lg">Gesamtinvestition</span>
-                <span className="text-[#b48e57] font-bold text-xl" style={{ fontFamily: 'Playfair Display, serif' }}>120.000 – 180.000 €</span>
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-6 mt-8">
-              {[
-                { icon: TrendingUp, title: 'Franchise-Gebühr', desc: '5% vom Nettoumsatz monatlich' },
-                { icon: BarChart3, title: 'Marketing-Beitrag', desc: '2% vom Nettoumsatz monatlich' },
-                { icon: Truck, title: 'Warenbezug', desc: 'Exklusiv über Brew Blend' },
-              ].map((item, i) => (
-                <div key={i} className="bg-[#faf9f7] rounded-xl p-6 text-center">
-                  <item.icon className="w-8 h-8 text-[#b48e57] mx-auto mb-3" />
-                  <h4 className="font-bold text-[#1a1a1a] mb-1">{item.title}</h4>
-                  <p className="text-gray-500 text-sm">{item.desc}</p>
-                </div>
-              ))}
+            <div className="mt-12 text-center">
+              <a href="/investition" className="inline-flex items-center gap-2 justify-center bg-[#b48e57] text-white px-8 py-4 rounded-2xl font-semibold shadow-lg shadow-[#b48e57]/20 transition hover:bg-[#9a7848]">
+                Alle Investitionsdetails anzeigen
+                <ArrowRight className="w-5 h-5" />
+              </a>
             </div>
           </div>
         </section>
@@ -1216,70 +1178,6 @@ export default function FranchiseKonzept() {
                       </li>
                     ))}
                   </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Revenue Forecast */}
-        <section className="py-20 px-6 bg-white">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-16">
-              <span className="text-[#b48e57] text-sm font-semibold tracking-[0.3em] uppercase">Prognose</span>
-              <h2 className="text-4xl sm:text-5xl font-bold text-[#1a1a1a] mt-3 mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>
-                Umsatz- & Ertragsprognose
-              </h2>
-              <p className="text-gray-500 text-sm">Modell A – Café (Flaggschiff) | Monatliche Durchschnittswerte</p>
-            </div>
-
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="bg-[#1a1a1a] text-white">
-                    <th className="text-left p-4 rounded-tl-xl">Position</th>
-                    <th className="text-right p-4">Jahr 1</th>
-                    <th className="text-right p-4">Jahr 2</th>
-                    <th className="text-right p-4 rounded-tr-xl">Jahr 3</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {[
-                    { label: 'Bruttoumsatz/Monat', v1: '25.000 €', v2: '35.000 €', v3: '45.000 €' },
-                    { label: 'Wareneinsatz (30%)', v1: '7.500 €', v2: '10.500 €', v3: '13.500 €' },
-                    { label: 'Personalkosten (25%)', v1: '6.250 €', v2: '8.750 €', v3: '11.250 €' },
-                    { label: 'Miete & Nebenkosten', v1: '3.000 €', v2: '3.200 €', v3: '3.400 €' },
-                    { label: 'Franchise-Gebühr (5%)', v1: '1.250 €', v2: '1.750 €', v3: '2.250 €' },
-                    { label: 'Marketing-Beitrag (2%)', v1: '500 €', v2: '700 €', v3: '900 €' },
-                    { label: 'Sonstige Kosten', v1: '2.000 €', v2: '2.100 €', v3: '2.200 €' },
-                  ].map((row, i) => (
-                    <tr key={i} className={i % 2 === 0 ? 'bg-[#faf9f7]' : 'bg-white'}>
-                      <td className="p-4 text-gray-700 font-medium">{row.label}</td>
-                      <td className="p-4 text-right text-gray-600">{row.v1}</td>
-                      <td className="p-4 text-right text-gray-600">{row.v2}</td>
-                      <td className="p-4 text-right text-gray-600">{row.v3}</td>
-                    </tr>
-                  ))}
-                  <tr className="bg-[#1a1a1a] text-white font-bold">
-                    <td className="p-4 rounded-bl-xl">Nettoergebnis/Monat</td>
-                    <td className="p-4 text-right text-[#b48e57]">4.500 €</td>
-                    <td className="p-4 text-right text-[#b48e57]">8.000 €</td>
-                    <td className="p-4 text-right text-[#b48e57] rounded-br-xl">11.500 €</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-6 mt-10">
-              {[
-                { icon: TrendingUp, label: 'Break-Even', value: '12-18 Monate' },
-                { icon: Clock, label: 'ROI', value: '24-36 Monate' },
-                { icon: BarChart3, label: 'Jahresumsatz Ziel (Jahr 3)', value: '540.000 €' },
-              ].map((kpi, i) => (
-                <div key={i} className="bg-gradient-to-br from-[#1a1a1a] to-[#2a2a2a] rounded-xl p-6 text-center">
-                  <kpi.icon className="w-8 h-8 text-[#b48e57] mx-auto mb-3" />
-                  <div className="text-white text-2xl font-bold mb-1" style={{ fontFamily: 'Playfair Display, serif' }}>{kpi.value}</div>
-                  <div className="text-gray-400 text-sm">{kpi.label}</div>
                 </div>
               ))}
             </div>
